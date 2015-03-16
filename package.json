@@ -1,5 +1,5 @@
 {
-  "name": "autobiography",
+  "name": "auto",
   "version": "0.0.1",
   "devDependencies": {
     "browserify": "^9.0.3",
