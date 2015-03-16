@@ -6,6 +6,8 @@ var HairState = require('./states/HairState');
 
 window.onload = function windowLoaded() {
     'use strict';
+    document.title = Config.TITLE;
+
     var game = new Phaser.Game(
         Config.WIDTH,
         Config.HEIGHT,
@@ -15,6 +17,7 @@ window.onload = function windowLoaded() {
         false,
         false
     );
+
     game.state.add('boot', BootState);
     game.state.add('menu', MenuState);
     game.state.add('pill', PillState);
