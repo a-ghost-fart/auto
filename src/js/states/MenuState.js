@@ -10,13 +10,16 @@ module.exports = {
 
         var _this = this;
         this.menu = this.game.add.group();
-        this.menuItems = ['pill', 'hair'];
+        this.menuItems = [
+            { 'label': 'something', 'transition': 'pill' },
+            { 'label': 'something else', 'transition': 'hair' }
+        ];
         this.menuOffset = 10;
 
         this.menuItems.forEach(function iterateMenuItems(item, index) {
-            var text = _this.game.add.bitmapText(10, (_this.menuOffset * index) * Config.SCALE.y, 'test-font', item, 12);
+            var text = _this.game.add.bitmapText(10, (_this.menuOffset * index) * Config.SCALE.y, 'test-font', item.label, 12);
             text.scale = Config.SCALE;
-            text.stateTransition = item;
+            text.stateTransition = item.transition;
             text.inputEnabled = true;
             text.input.enabled = true;
             text.input.useHandCursor = true;
