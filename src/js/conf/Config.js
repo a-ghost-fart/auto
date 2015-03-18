@@ -1,5 +1,6 @@
 module.exports = {
-    'WIDTH': 960,
-    'HEIGHT': 540,
-    'TITLE': 'auto'
+    'WIDTH': 120,
+    'HEIGHT': 68,
+    'TITLE': 'auto',
+    'SCALE': new Phaser.Point(8, 8)
 };

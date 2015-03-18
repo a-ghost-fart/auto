@@ -9,8 +9,8 @@ window.onload = function windowLoaded() {
     document.title = Config.TITLE;
 
     var game = new Phaser.Game(
-        Config.WIDTH,
-        Config.HEIGHT,
+        Config.WIDTH * Config.SCALE.x,
+        Config.HEIGHT * Config.SCALE.y,
         Phaser.AUTO,
         document.getElementById('viewport'),
         null,

@@ -1,7 +1,8 @@
 module.exports = {
     'preload': function bootStatePreLoad() {
         'use strict';
-        this.game.load.spritesheet('button', 'assets/ui/button_sprite_sheet.png', 193, 71);
+        this.game.load.image('test-background', 'assets/menu/menu-background.png');
+        this.game.load.bitmapFont('test-font', 'assets/ui/font.png', 'assets/ui/font.xml');
     },
     'create': function bootStateCreate() {
         'use strict';
