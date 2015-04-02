@@ -7,31 +7,32 @@ module.exports = {
         this.shavedThreshold = 50;
 
         this.enterTime = new Date().getTime();
-        this.timerMax = 10;
+        this.timerMax = 1;
         this.timer = 0;
         this.timerRunning = true;
 
         this.game.stage.backgroundColor = 'rgba(0, 0, 0)';
 
         this.timerText = this.game.add.bitmapText(
-            this.game.world.centerX,
-            20,
+            30,
+            10,
             'test-font',
             Math.ceil(this.timer / 1000),
             12
         );
-        this.timerText.align = 'center';
         this.timerText.scale = Config.SCALE;
+        this.timerText.fixToCamera = true;
+        this.timerText.smoothed = false;
     },
 
     'update': function hairStateUpdate(game) {
         'use strict';
-        this.timerText.setText(Math.ceil(this.timerMax - (this.timer / 1000)));
         if (this.shavedPercent >= this.shavedThreshold) {
             this.timerRunning = false;
             this.successState();
         }
         if (this.timerRunning) {
+            this.timerText.setText(Math.ceil(this.timerMax - (this.timer / 1000)));
             this.timer += game.time.elapsed;
             if (this.timer >= (this.timerMax * 1000)) {
                 this.timerRunning = false;
@@ -51,11 +52,22 @@ module.exports = {
 
     'successState': function hairStateSucceed() {
         'use strict';
-        console.log('success');
+        var messages = [
+            'STUNNING',
+            'HOW BEAUTIFUL',
+            'SHIT, SON',
+            'GGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGG'
+        ];
+        var rand = Math.floor(Math.random() * messages.length);
+        this.timerText.setText(messages[rand]);
     },
 
     'failState': function hairStateFail() {
         'use strict';
-        console.log('fail');
+        this.timerText.setText('FAILURE');
+        var _this = this;
+        setTimeout(function () {
+            _this.game.state.start('menu');
+        }, 2000);
     }
 };

@@ -11,8 +11,8 @@ module.exports = {
         var _this = this;
         this.menu = this.game.add.group();
         this.menuItems = [
-            { 'label': 'something', 'transition': 'pill' },
-            { 'label': 'something else', 'transition': 'hair' }
+            { 'label': 'pills', 'transition': 'pill' },
+            { 'label': 'hair', 'transition': 'hair' }
         ];
         this.menuOffset = 10;
 
@@ -20,6 +20,7 @@ module.exports = {
             var text = _this.game.add.bitmapText(10, (_this.menuOffset * index) * Config.SCALE.y, 'test-font', item.label, 12);
             text.scale = Config.SCALE;
             text.stateTransition = item.transition;
+            text.smoothed = false;
             text.inputEnabled = true;
             text.input.enabled = true;
             text.input.useHandCursor = true;
