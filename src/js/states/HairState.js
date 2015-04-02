@@ -1,17 +1,32 @@
+var Config = require('../conf/Config');
+
 module.exports = {
     'create': function hairStateCreate() {
         'use strict';
         this.shavedPercent = 0;
         this.shavedThreshold = 50;
+
         this.enterTime = new Date().getTime();
-        this.timerMax = 30;
+        this.timerMax = 10;
         this.timer = 0;
         this.timerRunning = true;
+
         this.game.stage.backgroundColor = 'rgba(0, 0, 0)';
+
+        this.timerText = this.game.add.bitmapText(
+            this.game.world.centerX,
+            20,
+            'test-font',
+            Math.ceil(this.timer / 1000),
+            12
+        );
+        this.timerText.align = 'center';
+        this.timerText.scale = Config.SCALE;
     },
 
     'update': function hairStateUpdate(game) {
         'use strict';
+        this.timerText.setText(Math.ceil(this.timerMax - (this.timer / 1000)));
         if (this.shavedPercent >= this.shavedThreshold) {
             this.timerRunning = false;
             this.successState();
