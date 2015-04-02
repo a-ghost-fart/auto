@@ -1,17 +1,25 @@
 var Config = require('../conf/Config');
 
 module.exports = {
-    'create': function hairStateCreate() {
+    'create': function hairStateCreate(game) {
         'use strict';
         this.shavedPercent = 0;
         this.shavedThreshold = 50;
 
         this.enterTime = new Date().getTime();
-        this.timerMax = 1;
+        this.timerMax = 10;
         this.timer = 0;
         this.timerRunning = true;
 
-        this.game.stage.backgroundColor = 'rgba(0, 0, 0)';
+        this.background = game.add.image(0, 0, 'hair-background');
+        this.background.scale = Config.SCALE;
+        game.stage.backgroundColor = 'rgba(0, 0, 0)';
+
+        this.map = game.add.tilemap('hair-tilemap');
+        this.map.addTilesetImage('hair', 'hair-tileset');
+        this.layer = this.map.createLayer('Tile Layer 1');
+        this.layer.scale = Config.SCALE;
+        this.layer.resizeWorld();
 
         this.timerText = this.game.add.bitmapText(
             30,

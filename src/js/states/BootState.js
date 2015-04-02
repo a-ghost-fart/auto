@@ -2,6 +2,11 @@ module.exports = {
     'preload': function bootStatePreLoad() {
         'use strict';
         this.game.load.image('test-background', 'assets/menu/menu-background.png');
+
+        this.game.load.image('hair-background', 'assets/hair/hair-background.png');
+        this.game.load.image('hair-tileset', 'assets/hair/hair-tileset.png');
+        this.game.load.tilemap('hair-tilemap', 'assets/hair/hair-tilemap.json', null, Phaser.Tilemap.TILED_JSON);
+
         this.game.load.bitmapFont('test-font', 'assets/ui/font.png', 'assets/ui/font.xml');
     },
     'create': function bootStateCreate() {
