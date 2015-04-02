@@ -12,7 +12,8 @@ module.exports = {
         this.menu = this.game.add.group();
         this.menuItems = [
             { 'label': 'something', 'transition': 'pill' },
-            { 'label': 'something else', 'transition': 'hair' }
+            { 'label': 'something else', 'transition': 'hair' },
+            { 'label': 'uhhhhhh', 'transition': 'uhh' }
         ];
         this.menuOffset = 10;
 

@@ -1,12 +1,8 @@
 var Config = require('./conf/Config');
-var BootState = require('./states/BootState');
-var MenuState = require('./states/MenuState');
-var PillState = require('./states/PillState');
-var HairState = require('./states/HairState');
 
 window.onload = function windowLoaded() {
     'use strict';
-    document.title = Config.TITLE;
+    document.title = Config.TITLE + ' v' + Config.VERSION;
 
     var game = new Phaser.Game(
         Config.WIDTH * Config.SCALE.x,
@@ -18,9 +14,9 @@ window.onload = function windowLoaded() {
         false
     );
 
-    game.state.add('boot', BootState);
-    game.state.add('menu', MenuState);
-    game.state.add('pill', PillState);
-    game.state.add('hair', HairState);
+    game.state.add('boot', require('./states/BootState'));
+    game.state.add('menu', require('./states/MenuState'));
+    game.state.add('pill', require('./states/PillState'));
+    game.state.add('hair', require('./states/HairState'));
     game.state.start('boot');
 };
