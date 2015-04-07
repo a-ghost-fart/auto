@@ -7,7 +7,7 @@ window.onload = function windowLoaded() {
     var game = new Phaser.Game(
         Config.WIDTH * Config.SCALE.x,
         Config.HEIGHT * Config.SCALE.y,
-        Phaser.AUTO,
+        Phaser.CANVAS,
         document.getElementById('viewport'),
         null,
         false,

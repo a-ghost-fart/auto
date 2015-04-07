@@ -1,20 +1,24 @@
 module.exports = {
-    'preload': function bootStatePreLoad() {
+    'preload': function bootStatePreLoad(game) {
         'use strict';
-        this.game.load.image('test-background', 'assets/menu/menu-background.png');
+        game.load.image('test-background', 'assets/menu/menu-background.png');
 
-        this.game.load.image('hair-background', 'assets/hair/hair-background.png');
-        this.game.load.image('hair-tileset', 'assets/hair/hair-tileset.png');
-        this.game.load.tilemap('hair-tilemap', 'assets/hair/hair-tilemap.json', null, Phaser.Tilemap.TILED_JSON);
+        game.load.image('hair-background', 'assets/hair/hair-background.png');
+        game.load.image('hair-tileset', 'assets/hair/hair-tileset.png');
+        game.load.tilemap('hair-tilemap', 'assets/hair/hair-tilemap.json', null, Phaser.Tilemap.TILED_JSON);
+        game.load.image('hair-shaver', 'assets/hair/hair-shaver.png');
+        game.load.image('hair-blades', 'assets/hair/hair-blades.png');
 
-        this.game.load.bitmapFont('test-font', 'assets/ui/font.png', 'assets/ui/font.xml');
+        game.load.bitmapFont('test-font', 'assets/ui/font.png', 'assets/ui/font.xml');
+
+        game.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
     },
-    'create': function bootStateCreate() {
+    'create': function bootStateCreate(game) {
         'use strict';
-        this.game.stage.backgroundColor = '#000';
+        game.stage.backgroundColor = '#000';
         this.text = this.game.add.text(
-            this.game.world.centerX,
-            this.game.world.centerY,
+            game.world.centerX,
+            game.world.centerY,
             'Loading.',
             {
                 'font': 'bold 60pt Arial',
@@ -24,11 +28,11 @@ module.exports = {
         );
         this.text.anchor.set(0.5);
     },
-    'update': function bootStateUpdate() {
+    'update': function bootStateUpdate(game) {
         'use strict';
-        if (this.game.load.progress === 100) {
+        if (game.load.hasLoaded) {
             this.text.destroy();
-            this.game.state.start('menu');
+            game.state.start('menu');
         }
     }
 };

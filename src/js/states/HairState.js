@@ -3,6 +3,10 @@ var Config = require('../conf/Config');
 module.exports = {
     'create': function hairStateCreate(game) {
         'use strict';
+
+        game.physics.startSystem(Phaser.Physics.ARCADE);
+        game.physics.arcade.gravity.y = 250;
+
         this.shavedPercent = 0;
         this.shavedThreshold = 50;
 
@@ -40,6 +44,14 @@ module.exports = {
             this.successState();
         }
         if (this.timerRunning) {
+
+            game.physics.arcade.collide(this.blades, this.layer/*, function hairCollision(self, tile) {
+                console.log(tile);
+                if (tile.index === 1) {
+                    tile.alpha = 0;
+                }
+            }*/);
+
             this.timerText.setText(Math.ceil(this.timerMax - (this.timer / 1000)));
             this.timer += game.time.elapsed;
             if (this.timer >= (this.timerMax * 1000)) {
@@ -49,13 +61,15 @@ module.exports = {
         }
     },
 
-    'render': function hairStateRender() {
+    'render': function hairStateRender(game) {
         'use strict';
         // HOPE YOU LIKE SCREEN TEARING
         var r = Math.floor(Math.random() * 255);
         var g = Math.floor(Math.random() * 255);
         var b = Math.floor(Math.random() * 255);
         this.game.stage.backgroundColor = 'rgba(' + r + ', ' + g + ', ' + b + ')';
+        game.debug.body(this.blades);
+        game.debug.bodyInfo(this.blades, 32, 32);
     },
 
     'successState': function hairStateSucceed() {
