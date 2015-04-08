@@ -16,25 +16,26 @@ module.exports = {
         this.timerRunning = true;
 
         this.background = game.add.image(0, 0, 'hair-background');
-        this.background.scale = Config.SCALE;
         game.stage.backgroundColor = 'rgba(0, 0, 0)';
 
         this.map = game.add.tilemap('hair-tilemap');
         this.map.addTilesetImage('hair', 'hair-tileset');
+        this.map.setCollision(1);
         this.layer = this.map.createLayer('Tile Layer 1');
-        this.layer.scale = Config.SCALE;
         this.layer.resizeWorld();
+        this.layer.debug = true;
 
-        this.timerText = this.game.add.bitmapText(
+        this.timerText = game.add.bitmapText(
             30,
             10,
             'test-font',
             Math.ceil(this.timer / 1000),
             12
         );
-        this.timerText.scale = Config.SCALE;
         this.timerText.fixToCamera = true;
         this.timerText.smoothed = false;
+
+        this.blades = game.add.sprite(50, 30, 'hair-blades');
     },
 
     'update': function hairStateUpdate(game) {
@@ -44,19 +45,12 @@ module.exports = {
             this.successState();
         }
         if (this.timerRunning) {
-
-            game.physics.arcade.collide(this.blades, this.layer/*, function hairCollision(self, tile) {
-                console.log(tile);
-                if (tile.index === 1) {
-                    tile.alpha = 0;
-                }
-            }*/);
-
-            this.timerText.setText(Math.ceil(this.timerMax - (this.timer / 1000)));
+            game.physics.arcade.collide(this.blades, this.layer);
+            //this.timerText.setText(Math.ceil(this.timerMax - (this.timer / 1000)));
             this.timer += game.time.elapsed;
             if (this.timer >= (this.timerMax * 1000)) {
                 this.timerRunning = false;
-                this.failState();
+                this.failState(game);
             }
         }
     },
@@ -67,12 +61,13 @@ module.exports = {
         var r = Math.floor(Math.random() * 255);
         var g = Math.floor(Math.random() * 255);
         var b = Math.floor(Math.random() * 255);
-        this.game.stage.backgroundColor = 'rgba(' + r + ', ' + g + ', ' + b + ')';
+        game.stage.backgroundColor = 'rgba(' + r + ', ' + g + ', ' + b + ')';
         game.debug.body(this.blades);
         game.debug.bodyInfo(this.blades, 32, 32);
+
     },
 
-    'successState': function hairStateSucceed() {
+    'successState': function hairStateSucceed(game) {
         'use strict';
         var messages = [
             'STUNNING',
@@ -84,12 +79,11 @@ module.exports = {
         this.timerText.setText(messages[rand]);
     },
 
-    'failState': function hairStateFail() {
+    'failState': function hairStateFail(game) {
         'use strict';
         this.timerText.setText('FAILURE');
-        var _this = this;
         setTimeout(function () {
-            _this.game.state.start('menu');
+            game.state.start('menu');
         }, 2000);
     }
 };

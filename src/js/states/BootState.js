@@ -1,3 +1,5 @@
+var Config = require('../conf/Config');
+
 module.exports = {
     'preload': function bootStatePreLoad(game) {
         'use strict';
@@ -9,14 +11,14 @@ module.exports = {
         game.load.image('hair-shaver', 'assets/hair/hair-shaver.png');
         game.load.image('hair-blades', 'assets/hair/hair-blades.png');
 
-        game.load.bitmapFont('test-font', 'assets/ui/font.png', 'assets/ui/font.xml');
+        game.world.scale = Config.SCALE;
 
-        game.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
+        game.load.bitmapFont('test-font', 'assets/ui/font.png', 'assets/ui/font.xml');
     },
     'create': function bootStateCreate(game) {
         'use strict';
         game.stage.backgroundColor = '#000';
-        this.text = this.game.add.text(
+        this.text = game.add.text(
             game.world.centerX,
             game.world.centerY,
             'Loading.',
